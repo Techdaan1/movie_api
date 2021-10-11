@@ -7,74 +7,42 @@ const app = express();
 let movies = [
   {
     title: 'Schindler’s List',
-    genre: {
-      "drama",
-      "history"
-  },
     director: 'Steven Spielberg'
   },
   {
     title: 'The Lord of the Rings: The Fellowship of the Ring',
-    genre: {
-      adventure, 
-      fantasy
-    },
     director: 'Peter Jackson'
   },
   {
     title: 'The Shining',
-    genre: {
-      horror,
-      thriller
-    },
     director: 'Stanley Kubrick'
   },
   {
     title: 'Inception',
-    genre: {
-      sciencefiction, 
-      action
-    },
     director: 'Christopher Nolan'
   },
   {
     title: 'Django Unchained',
-    genre: {
-      action, 
-      western
-    },
     director: 'Quentin Tarantino'
   },
   {
     title: 'The Truman Show',
-    genre: 'comedy',
     director: 'Peter Weir'
   },
   {
     title: 'Mamma Mia!',
-    genre: {
-      comedy,
-      music, 
-      romance
-    },
     director: 'Phyllida Lloyd'
   },
   {
     title: 'The Green Mile',
-    genre: 'drama',
     director: 'Frank Dabrabont'
   },
   {
     title: 'The Hunger Games',
-    genre: {
-      adventure, 
-      sciencefiction
-    },
     director: 'Francis Lawrence'
   },
   {
     title: 'The Conjuring',
-    genre: 'horror',
     director: 'James wan'
   }
 ];
