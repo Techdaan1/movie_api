@@ -98,6 +98,10 @@ app.put('/users/:name', (req, res) => {
   res.send('user name has been updated')
 });
 
+app.put('/users/:name/favoriteList', (req, res) => {
+  res.send('movie from favorite list has been succesfully added')
+});
+
 //DELETE movie from favorite list of user
 
 app.delete('/users/:name/favoriteList', (req, res) => {
