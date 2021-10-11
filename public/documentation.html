@@ -7,5 +7,100 @@
   <body>
     <h1>My Movie Database</h1>
     <p>This web application will provide you with information about different movies, directors, and genres.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Business Logic</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request body data format</th>
+          <th>Response body data format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get a list of all movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>A JSON object holding data about all the movies</td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by title</td>
+          <td>/movies[title]</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>A JSON object holding data about a single movie, containing and ID, title, genre and director name.<br>
+            Example:<br>
+            {<br>
+              ID: 1,<br>
+              Title: "Mama Mia!",<br>
+              Genre: "comedy",<br>
+              director: "Phyllida Lloyd"<br>
+             }<br>
+          </td>
+        <tr>
+          <td>Get data about a genre by name</td>
+          <td>/movies/[genre]</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>A JSON object holding data about a genre.</td>
+        </tr>
+        <tr>
+          <td>Get data about a director by name</td>
+          <td>/movies/[director]</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>A JSON object holding data about a director.</td>
+        </tr>
+        <tr>
+          <td>Add a user</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>A JSON object holding data about the user to add.<br>
+            structrured like:<br>
+            {<br>
+              name: "John Doe",<br>
+              email: "john.doe@example.com",<br>
+              password: "testtest"<br>
+            }<br>
+          </td>
+          <td>A JSON object holding data about the user that was added:<br>
+            {<br>
+              name: "John Doe",<br>
+              email: "john.doe@example.com",<br>
+              password: "testtest"<br>
+            }<br>
+          </td>
+        </tr>
+        <tr>
+          <td>Update user name</td>
+          <td>/users[name]</td>
+          <td>PUT</td>
+          <td>none</td>
+          <td>A text message indicating the user name that was updated</td>
+        </tr>
+        <tr>
+          <td>Add movie to favorite list of user</td>
+          <td>/users/[name]/favoritelist</td>
+          <td>POST</td>
+          <td>none</td>
+          <td>A text message indicating the movie that was added</td>
+        </tr>
+        <tr>
+          <td>Delete movie from favorite list of user</td>
+          <td>/users/[name]/favoritelist</td>
+          <td>DELETE</td>
+          <td>none</td>
+          <td>A text message indicating wether the movie was successfully removed from the favorite list</td>
+        </tr>
+        <tr>
+          <td>Delete user</td>
+          <td>/users/[name]</td>
+          <td>DELETE</td>
+          <td>none</td>
+          <td>A text message indicating wether the user was successfully removed</td>
+        </tr>
+      </tbody>
   </body>
 </html>
