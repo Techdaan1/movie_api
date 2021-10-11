@@ -4,45 +4,55 @@ const { rest } = require('lodash');
 
 const app = express();
 
-let topMovies = [
+let movies = [
   {
     title: 'Schindler’s List',
+    genre: 'drama', 'history',
     director: 'Steven Spielberg'
   },
   {
     title: 'The Lord of the Rings: The Fellowship of the Ring',
+    genre: 'adventure', 'fantasy',
     director: 'Peter Jackson'
   },
   {
     title: 'The Shining',
+    genre: 'horror', 'thriller',
     director: 'Stanley Kubrick'
   },
   {
     title: 'Inception',
+    genre: 'sciencefiction', 'action',
     director: 'Christopher Nolan'
   },
   {
     title: 'Django Unchained',
+    genre: 'action', 'western',
     director: 'Quentin Tarantino'
   },
   {
     title: 'The Truman Show',
+    genre: 'comedy',
     director: 'Peter Weir'
   },
   {
     title: 'Mamma Mia!',
+    genre: 'comedy','music', 'romance',
     director: 'Phyllida Lloyd'
   },
   {
     title: 'The Green Mile',
+    genre: 'drama',
     director: 'Frank Dabrabont'
   },
   {
     title: 'The Hunger Games',
+    genre: 'adventure', 'sciencefiction',
     director: 'Francis Lawrence'
   },
   {
     title: 'The Conjuring',
+    genre: 'horror',
     director: 'James wan'
   }
 ];
@@ -66,27 +76,26 @@ app.get('movies/:title', (req, res) => {
 });
 
 //GET data about a genre by name
-app.get('genres/:genreName', (req, res) => {
-  res.json(movies.find((movie) =>
-  { return movie.genre === req.params.genre }));
+app.get('genres/:name', (req, res) => {
+  res.json(genres.find((genre) =>
+  { return genre.name === req.params.name }));
 });
 
 //GET data about a director by name
-app.get('directors/:directorName', (req, res) => {
-  res.json(movies.find((movie) =>
-  { return movie.director === req.params.director }));
+app.get('directors/:name', (req, res) => {
+  res.json(directors.find((director) =>
+  { return director.name === req.params.name }));
 });
 
 //POST - add new user
 
-app.post('/register', (req, res) => {
+app.post('/users', (req, res) => {
 let newUser = req.body;
 
 if (!newUser.name) {
   const message = 'Missing name in request body';
   rest.status(400).send(message);
 } else {
-  newUser.id = uuid.v4();
   users.push(newUser);
   res.status(201).send(newUser);
 }
