@@ -55,7 +55,6 @@ let movies = [
   },
   {
     title: 'The Green Mile',
-    genre: 'drama',
     director: 'Frank Dabrabont'
   },
   {
