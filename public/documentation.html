@@ -30,25 +30,23 @@
           <td>/movies[title]</td>
           <td>GET</td>
           <td>none</td>
-          <td>A JSON object holding data about a single movie, containing and ID, title, genre and director name.<br>
+          <td>A JSON object holding data about a single movie, containing a title and director name.<br>
             Example:<br>
             {<br>
-              ID: 1,<br>
               Title: "Mama Mia!",<br>
-              Genre: "comedy",<br>
               director: "Phyllida Lloyd"<br>
              }<br>
           </td>
         <tr>
           <td>Get data about a genre by name</td>
-          <td>/movies/[genre]</td>
+          <td>/genres/[name]</td>
           <td>GET</td>
           <td>none</td>
           <td>A JSON object holding data about a genre.</td>
         </tr>
         <tr>
           <td>Get data about a director by name</td>
-          <td>/movies/[director]</td>
+          <td>/directors/[name]</td>
           <td>GET</td>
           <td>none</td>
           <td>A JSON object holding data about a director.</td>
