@@ -8,8 +8,8 @@ let movies = [
   {
     title: 'Schindler’s List',
     genre: {
-      drama,
-      history
+      "drama",
+      "history"
   },
     director: 'Steven Spielberg'
   },
