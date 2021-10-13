@@ -67,31 +67,20 @@ app.get('/movies/:title', (req, res) => {
 
 //GET data about a genre by name
 app.get('/genres/:name', (req, res) => {
-  res.send('Successful GET request of all movie genres.');
+  res.send('Successful GET request of all movie genres by name.');
 });
 
 //GET data about a director by name
 app.get('/directors/:name', (req, res) => {
-  res.json(directors.find((director) =>
-  { return director.name === req.params.name }));
+  res.send('Successful GET request of all directors by name.');
 });
 
 //POST - add new user
-
 app.post('/users', (req, res) => {
-let newUser = req.body;
-
-if (!newUser.name) {
-  const message = 'Missing name in request body';
-  rest.status(400).send(message);
-} else {
-  users.push(newUser);
-  res.status(201).send(newUser);
-}
+  res.send('New user has Successfully been added');
 });
 
 //PUT - update user name
-
 app.put('/users/:name', (req, res) => {
   let user = user.find((user) => { return user.name === req.params.name});
   res.send('user name has been updated')
