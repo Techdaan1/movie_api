@@ -67,8 +67,7 @@ app.get('/movies/:title', (req, res) => {
 
 //GET data about a genre by name
 app.get('/genres/:name', (req, res) => {
-  res.json(genres.find((genre) =>
-  { return genre.name === req.params.name }));
+  res.send('Successful GET request of all movie genres.');
 });
 
 //GET data about a director by name
