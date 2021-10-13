@@ -67,23 +67,22 @@ app.get('/movies/:title', (req, res) => {
 
 //GET data about a genre by name
 app.get('/genres/:name', (req, res) => {
-  res.send('Successful GET request of all movie genres by name.');
+  res.send('Successful GET request of all movie genres by name');
 });
 
 //GET data about a director by name
 app.get('/directors/:name', (req, res) => {
-  res.send('Successful GET request of all directors by name.');
+  res.send('Successful GET request of directors information by name');
 });
 
 //POST - add new user
 app.post('/users', (req, res) => {
-  res.send('New user has Successfully been added');
+  res.send('New user has successfully been added');
 });
 
 //PUT - update user name
 app.put('/users/:name', (req, res) => {
-  let user = user.find((user) => { return user.name === req.params.name});
-  res.send('user name has been updated')
+  res.send('user name has succesfully been updated')
 });
 
 app.put('/users/:name/favoriteList', (req, res) => {
