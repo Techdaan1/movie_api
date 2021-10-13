@@ -85,20 +85,20 @@ app.put('/users/:name', (req, res) => {
   res.send('user name has succesfully been updated')
 });
 
-app.put('/users/:name/favoriteList', (req, res) => {
-  res.send('movie from favorite list has been succesfully added')
+app.put('/users/:name/favoriteList/:addFavorite', (req, res) => {
+  res.send('movie from favorite list has succesfully been added')
 });
 
 //DELETE movie from favorite list of user
 
-app.delete('/users/:name/favoriteList', (req, res) => {
-  res.send('movie from favorite list has been succesfully deleted')
+app.delete('/users/:name/favoriteList/:deleteFavorite', (req, res) => {
+  res.send('movie from favorite list has succesfully been deleted')
 });
 
 //DELETE user
 
 app.delete('/users/:name', (req, res) => {
-  res.send('user has been succesfully deleted')
+  res.send('user has succesfully been deleted')
 });
 
 // USE requests
