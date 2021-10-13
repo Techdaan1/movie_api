@@ -35,15 +35,15 @@ let movies = [
   },
   {
     title: 'The Green Mile',
-    director: 'Frank Dabrabont'
+    director: 'Frank Darabont'
   },
   {
     title: 'The Hunger Games',
     director: 'Francis Lawrence'
   },
   {
-    title: 'The Conjuring',
-    director: 'James wan'
+    title: 'I am Legend',
+    director: 'Francis Lawrence'
   }
 ];
 
