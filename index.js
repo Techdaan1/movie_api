@@ -51,6 +51,30 @@ app.get('/directors/:name', (req, res) => {
   res.send('Successful GET request of directors information by name');
 });
 
+// Get all users
+app.get('/users', (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+//GET a user by username
+app.get('/users/:username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 //POST - add new user
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
@@ -79,23 +103,23 @@ app.post('/users', (req, res) => {
 });
 
 //PUT - update user name
-app.put('/users/:name', (req, res) => {
+app.put('/users/:username', (req, res) => {
   res.send('user name has succesfully been updated')
 });
 
-app.put('/users/:name/favoriteList/:addFavorite', (req, res) => {
+app.put('/users/:username/favoriteList/:addFavorite', (req, res) => {
   res.send('movie from favorite list has succesfully been added')
 });
 
 //DELETE movie from favorite list of user
 
-app.delete('/users/:name/favoriteList/:deleteFavorite', (req, res) => {
+app.delete('/users/:username/favoriteList/:deleteFavorite', (req, res) => {
   res.send('movie from favorite list has succesfully been deleted')
 });
 
 //DELETE user
 
-app.delete('/users/:name', (req, res) => {
+app.delete('/users/:username', (req, res) => {
   res.send('user has succesfully been deleted')
 });
 
