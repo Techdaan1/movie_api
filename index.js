@@ -7,10 +7,14 @@ const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const express = require('express'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  bodyParser = require('body-parser');
 const { rest } = require('lodash');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('common'));
 
 let movies = [
   {
@@ -55,7 +59,6 @@ let movies = [
   }
 ];
 
-app.use(morgan('common'));
 
 // GET welcome message
 app.get('/', (req, res) => {
