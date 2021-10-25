@@ -2,7 +2,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const uuid = require('uuid');
 const { rest } = require('lodash');
 
 //importing models from models.js
@@ -102,13 +101,45 @@ app.post('/users', (req, res) => {
     });
 });
 
-//PUT - update user name
-app.put('/users/:username', (req, res) => {
-  res.send('user name has succesfully been updated')
+//PUT - Update a user's info, by username
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true },
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 app.put('/users/:username/favoriteList/:addFavorite', (req, res) => {
   res.send('movie from favorite list has succesfully been added')
+});
+
+//Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, 
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 //DELETE movie from favorite list of user
