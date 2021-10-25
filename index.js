@@ -1,64 +1,29 @@
+//importing required modules
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
+const { rest } = require('lodash');
+
+//importing models from models.js
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
+//connection database with connection URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-const express = require('express'),
-  morgan = require('morgan'),
-  bodyParser = require('body-parser');
-const { rest } = require('lodash');
-
+//calling express
 const app = express();
+
+//activating morgan
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//activating morgan
 app.use(morgan('common'));
-
-let movies = [
-  {
-    title: 'Schindler’s List',
-    director: 'Steven Spielberg'
-  },
-  {
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
-    director: 'Peter Jackson'
-  },
-  {
-    title: 'The Shining',
-    director: 'Stanley Kubrick'
-  },
-  {
-    title: 'Inception',
-    director: 'Christopher Nolan'
-  },
-  {
-    title: 'Django Unchained',
-    director: 'Quentin Tarantino'
-  },
-  {
-    title: 'The Truman Show',
-    director: 'Peter Weir'
-  },
-  {
-    title: 'Mamma Mia!',
-    director: 'Phyllida Lloyd'
-  },
-  {
-    title: 'The Green Mile',
-    director: 'Frank Darabont'
-  },
-  {
-    title: 'The Hunger Games',
-    director: 'Francis Lawrence'
-  },
-  {
-    title: 'I am Legend',
-    director: 'Francis Lawrence'
-  }
-];
-
 
 // GET welcome message
 app.get('/', (req, res) => {
