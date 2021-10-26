@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 // GET list of all movies
 app.get('/movies', (req, res) => {
   Movies.find()
-  .then(movies) => {
+  .then((movies) => {
     res.status(201).json(movies);
   })
   .catch((err) => {
