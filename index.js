@@ -44,19 +44,63 @@ app.get('/movies', (req, res) => {
 });
 
 //GET data about a single movie by title
-app.get('/movies/:title', (req, res) => {
-  res.json(movies.find((movie) =>
-  { return movie.title === req.params.title}));
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({Title: req.params.Title})
+  .then((movies) => {
+    res.json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+//GET a list of all genres
+app.get('/genres', (req,res) => {
+  Genres.find()
+  .then(genres => {
+    res.status(201).json(genres);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 //GET data about a genre by name
-app.get('/genres/:name', (req, res) => {
-  res.send('Successful GET request of all movie genres by name');
+app.get('/genres/:Name', (req, res) => {
+  Movies.findOneAndDelete({ 'Genres.Name': req.params.Name})
+  .then((genres) => {
+    res.json(genres.Genres);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+//GET list of all directors
+app.get('/directors', (req,res) => {
+  Movies.find()
+  .then((directors) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 //GET data about a director by name
 app.get('/directors/:name', (req, res) => {
-  res.send('Successful GET request of directors information by name');
+  Movies.findOne({ 'Directors.Name': req.params.name})
+  .then((directors) => {
+    res.json(directors.Directors);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // Get all users
@@ -71,17 +115,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-//GET a user by username
-app.get('/users/:username', (req, res) => {
-  Users.findOne({ Username: req.params.Username })
-    .then((user) => {
-      res.json(user);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+
 
 //POST - add new user
 app.post('/users', (req, res) => {
@@ -112,17 +146,19 @@ app.post('/users', (req, res) => {
 
 //PUT - Update a user's info, by username
 app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-    {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username }, 
+    { 
+      $set: {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
-      Birthday: req.body.Birthday
+      Birthday: req.body.Birthday,
     }
   },
   { new: true },
   (err, updatedUser) => {
-    if(err) {
+    if (err) {
       console.error(err);
       res.status(500).send('Error: ' + err);
     } else {
