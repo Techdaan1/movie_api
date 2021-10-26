@@ -46,8 +46,8 @@ app.get('/movies', (req, res) => {
 //GET data about a single movie by title
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
-  .then((movies) => {
-    res.json(movies);
+  .then((movie) => {
+    res.json(movie);
   })
   .catch((err) => {
     console.error(err);
@@ -69,9 +69,9 @@ app.get('/genres', (req,res) => {
 
 //GET data about a genre by name
 app.get('/genres/:Name', (req, res) => {
-  Movies.findOneAndDelete({ 'Genres.Name': req.params.Name})
-  .then((genres) => {
-    res.json(genres.Genres);
+  Genres.findOne({Name: req.params.Name})
+  .then((genre) => {
+    res.json(genre);
   })
   .catch((err) => {
     console.error(err);
@@ -81,9 +81,9 @@ app.get('/genres/:Name', (req, res) => {
 
 //GET list of all directors
 app.get('/directors', (req,res) => {
-  Movies.find()
+  Directors.find()
   .then((directors) => {
-    res.status(201).json(movies);
+    res.status(201).json(directors);
   })
   .catch((err) => {
     console.error(err);
@@ -93,9 +93,9 @@ app.get('/directors', (req,res) => {
 
 //GET data about a director by name
 app.get('/directors/:Name', (req, res) => {
-  Movies.findOne({ 'Directors.Name': req.params.name})
-  .then((directors) => {
-    res.json(directors.Directors);
+  Directors.findOne({ Name: req.params.name})
+  .then((director) => {
+    res.json(director);
   })
   .catch((err) => {
     console.error(err);
