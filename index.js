@@ -92,7 +92,7 @@ app.get('/directors', (req,res) => {
 });
 
 //GET data about a director by name
-app.get('/directors/:name', (req, res) => {
+app.get('/directors/:Name', (req, res) => {
   Movies.findOne({ 'Directors.Name': req.params.name})
   .then((directors) => {
     res.json(directors.Directors);
