@@ -41,14 +41,14 @@ let directorSchema = mongoose.Schema({
     Death: String
 });
 
-
-
 let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
 let Genre = mongoose.model('Genre', genreSchema);
 let Director = mongoose.model('Director', directorSchema);
 
+//exports models
 module.exports.Movie = Movie;
 module.exports.User = User;
-module.exports.Genre = User;
-module.exports.Director = User;
+module.exports.Genre = Genre;
+module.exports.Director = Director;
+
