@@ -127,7 +127,7 @@ app.get('/users/:Username', (req, res) => {
     });
 });
 
-//POST - add new user
+//POST - register new user
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
