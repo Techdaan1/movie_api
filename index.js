@@ -163,8 +163,8 @@ app.put('/users/:Username', (req, res) => {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
-      Birthday: req.body.Birthday,
-    }
+      Birthday: req.body.Birthday
+    },
   },
   { new: true },
   (err, updatedUser) => {
