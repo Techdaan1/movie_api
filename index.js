@@ -10,6 +10,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 //connection database with connection URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -31,7 +33,14 @@ app.get('/', (req, res) => {
 
 // GET list of all movies
 app.get('/movies', (req, res) => {
-  res.json(movies);
+  movies.find()
+  .then(movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 //GET data about a single movie by title
