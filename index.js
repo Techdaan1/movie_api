@@ -1,6 +1,7 @@
 //importing required modules
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 //importing models from models.js
 const mongoose = require('mongoose');
@@ -18,6 +19,15 @@ const app = express();
 //activating express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//activating bodyParser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//calling authorization and passport
+const auth = require('./auth')(app);
+const passport = require('./passport');
+require('/passport');
 
 //activating morgan
 app.use(morgan('common'));
