@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //calling authorization and passport
 const auth = require('./auth')(app);
 const passport = require('./passport');
-require('/passport');
+require('./passport');
 
 //activating morgan
 app.use(morgan('common'));
