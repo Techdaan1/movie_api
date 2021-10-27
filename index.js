@@ -8,9 +8,6 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-// You dont need this
-// const Genres = Models.Genre;
-// const Directors = Models.Director;
 
 //connection database with connection URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +15,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 //calling express
 const app = express();
 
-//activating morgan
+//activating express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -194,7 +191,6 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 //DELETE user by username
-
 app.delete('/users/:Username', (req, res) => {
   Users.findOneAndDelete({ Username: req.params.Username})
   .then((user) => {
