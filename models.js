@@ -9,7 +9,7 @@ let movieSchema = mongoose.Schema({
         Name: String,
         Description: String
     },
-    Director: { 
+    Director: {
         Name: String,
         Bio: String
     },
@@ -23,10 +23,11 @@ let userSchema = mongoose.Schema({
     Username: {type: String, required: true},
     Password: {type: String, required: true},
     Email: {type: String, required: true},
-    Birthday: Date, 
+    Birthday: Date,
     FavoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
+/** For your current project you dont need this:
 //creating genreSchema
 let genreSchema = mongoose.Schema({
     Name: {type: String, required: true},
@@ -40,15 +41,18 @@ let directorSchema = mongoose.Schema({
     Birthdate: {type: Date, required: true},
     Death: String
 });
+ **/
 
 let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
+/** same for this
 let Genre = mongoose.model('Genre', genreSchema);
 let Director = mongoose.model('Director', directorSchema);
-
+**/
 //exports models
 module.exports.Movie = Movie;
 module.exports.User = User;
+/**
 module.exports.Genre = Genre;
 module.exports.Director = Director;
-
+**/

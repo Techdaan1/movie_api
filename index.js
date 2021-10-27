@@ -1,8 +1,6 @@
 //importing required modules
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const { rest } = require('lodash');
 
 //importing models from models.js
 const mongoose = require('mongoose');
@@ -10,8 +8,9 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+// You dont need this
+// const Genres = Models.Genre;
+// const Directors = Models.Director;
 
 //connection database with connection URI
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,8 +19,8 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 const app = express();
 
 //activating morgan
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //activating morgan
 app.use(morgan('common'));
@@ -57,7 +56,7 @@ app.get('/movies/:Title', (req, res) => {
 
 //GET a list of all genres
 app.get('/genres', (req,res) => {
-  Genres.find()
+  Movies.find({}, "Genre")
   .then(genres => {
     res.status(201).json(genres);
   })
@@ -69,7 +68,7 @@ app.get('/genres', (req,res) => {
 
 //GET data about a genre by name
 app.get('/genres/:Name', (req, res) => {
-  Genres.findOne({Name: req.params.Name})
+  Movies.findOne({'Genre.Name': req.params.Name})
   .then((genre) => {
     res.json(genre);
   })
@@ -81,9 +80,9 @@ app.get('/genres/:Name', (req, res) => {
 
 //GET list of all directors
 app.get('/directors', (req,res) => {
-  Directors.find()
+  Movies.find({}, "Director")
   .then((directors) => {
-    res.status(201).json(directors);
+    res.status(200).json(directors);
   })
   .catch((err) => {
     console.error(err);
@@ -93,9 +92,9 @@ app.get('/directors', (req,res) => {
 
 //GET data about a director by name
 app.get('/directors/:Name', (req, res) => {
-  Directors.findOne({ Name: req.params.name})
+  Movies.findOne({ "Director.Name": req.params.name})
   .then((director) => {
-    res.json(director);
+    res.status(200).json(director);
   })
   .catch((err) => {
     console.error(err);
@@ -107,7 +106,7 @@ app.get('/directors/:Name', (req, res) => {
 app.get('/users', (req, res) => {
   Users.find()
     .then((users) => {
-      res.status(201).json(users);
+      res.status(200).json(users);
     })
     .catch((err) => {
       console.error(err);
@@ -119,7 +118,7 @@ app.get('/users', (req, res) => {
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
-      res.json(user);
+      res.status(200).json(user);
     })
     .catch((err) => {
       console.error(err);
@@ -132,6 +131,7 @@ app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
+        // I think you should return the user details instead of this
         return res.status(400).send(req.body.Username + 'already exists');
       } else {
         Users
@@ -157,8 +157,8 @@ app.post('/users', (req, res) => {
 //PUT - Update a user's info, by username
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate(
-    { Username: req.params.Username }, 
-    { 
+    { Username: req.params.Username },
+    {
       $set: {
       Username: req.body.Username,
       Password: req.body.Password,
@@ -166,24 +166,22 @@ app.put('/users/:Username', (req, res) => {
       Birthday: req.body.Birthday
     },
   },
-  { new: true },
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+  { new: true })
+      .then((updatedUser) => {
+        res.status(200).json(updatedUser);
+    }).catch(err => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  })
 });
 
 //Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, 
+  Users.findOneAndUpdate({ Username: req.params.Username },
     {
      $push: { FavoriteMovies: req.params.MovieID }
    },
-   { new: true }, 
+   { new: true },
   (err, updatedUser) => {
     if (err) {
       console.error(err);
@@ -192,6 +190,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
       res.json(updatedUser);
     }
   });
+  // Change the above code to use a promise
 });
 
 //DELETE user by username
@@ -214,11 +213,11 @@ app.delete('/users/:Username', (req, res) => {
 //DELETE movie from favorite list of user
 
 app.delete('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, 
+  Users.findOneAndUpdate({ Username: req.params.Username },
     {
      $pull: { FavoriteMovies: req.params.MovieID }
    },
-   { new: true }, 
+   { new: true },
   (err, updatedUser) => {
     if (err) {
       console.error(err);
@@ -227,6 +226,7 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
       res.json(updatedUser);
     }
   });
+  // Change the above code to use a promise
 });
 
 // USE requests, error handler
