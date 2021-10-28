@@ -3,15 +3,11 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+//calling authorization and passport
+const passport = require('passport');
+
 //importing models from models.js
 const mongoose = require('mongoose');
-const Models = require('./models.js');
-
-const Movies = Models.Movie;
-const Users = Models.User;
-
-//connection database with connection URI
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //calling express
 const app = express();
@@ -24,13 +20,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//calling authorization and passport
-let auth = require('./auth')(app);
-const passport = require('passport');
-require('./passport');
+app.use(passport.initialize());
 
 //activating morgan
 app.use(morgan('common'));
+
+let auth = require('./auth')(app);
+const Models = require('./models.js');
+require('./passport');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+//connection database with connection URI
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // GET welcome message
 app.get('/', (req, res) => {
@@ -99,7 +102,7 @@ app.get('/directors', passport.authenticate('jwt', {session: false}), (req,res) 
 
 //GET data about a director by name
 app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({ "Director.Name": req.params.name})
+  Movies.findOne({ 'Director.Name': req.params.name})
   .then((director) => {
     res.status(200).json(director);
   })
