@@ -24,6 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//activating cors (cross origin recourse sharing)
+const cors = require('cors');
+app.use(cors());
+
 //calling authorization and passport
 let auth = require('./auth')(app);
 const passport = require('passport');
