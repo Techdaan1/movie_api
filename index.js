@@ -66,7 +66,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', {session: false}), (req, 
 
 //GET a list of all genres
 app.get('/genres', passport.authenticate('jwt', {session: false}), (req,res) => {
-  Movies.find({}, "Genre")
+  Movies.find({}, 'Genre')
   .then(genres => {
     res.status(201).json(genres);
   })
@@ -102,14 +102,14 @@ app.get('/directors', passport.authenticate('jwt', {session: false}), (req,res) 
 
 //GET data about a director by name
 app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({ 'Director.Name': req.params.name})
-  .then((director) => {
-    res.status(200).json(director);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
+  Movies.findOne({'Director.Name': req.params.name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Get all users
