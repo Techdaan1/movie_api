@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator');
 
 //calling authorization and passport
 const passport = require('passport');
