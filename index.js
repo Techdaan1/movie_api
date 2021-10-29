@@ -117,7 +117,7 @@ app.get('/directors/:Name', passport.authenticate('jwt', {session: false}), (req
     });
 });
 
-// Get all users
+//GET all users
 app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.find()
     .then((users) => {
@@ -180,7 +180,7 @@ app.post('/users',
 });
 
 //PUT - Update a user's info, by username
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username },
     {$set: {
       Username: req.body.Username,
@@ -194,7 +194,7 @@ app.put('/users/:Username', (req, res) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   } else {
-    res.json(updateUser);
+    res.json(updatedUser);
     }
   });
 });
@@ -257,6 +257,6 @@ app.use((err, req, res, next) => {
 
 // listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port);
 });
