@@ -26,6 +26,10 @@ app.use(passport.initialize());
 //activating morgan
 app.use(morgan('common'));
 
+//activating CORS and allow all domains
+const cors = require('cors');
+app.use(cors());
+
 let auth = require('./auth')(app);
 const Models = require('./models.js');
 require('./passport');
@@ -176,35 +180,23 @@ app.post('/users',
 });
 
 //PUT - Update a user's info, by username
-app.put('/users/:Username', 
-[
-  check('Username', 'Username is required').islength({min: 5}),
-  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be validated').isEmail()
-], (req, res) => {
-  let errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  },
-passport.authenticate('jwt', {session: false}), (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $set: {
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username },
+    {$set: {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
       Birthday: req.body.Birthday
-    },
-  },
-  { new: true })
-      .then((updatedUser) => {
-        res.status(200).json(updatedUser);
-    }).catch(err => {
+    }},
+  { new: true },
+  (err, updatedUser) => {
+    if(err) {
     console.error(err);
     res.status(500).send('Error: ' + err);
-  })
+  } else {
+    res.json(updateUser);
+    }
+  });
 });
 
 //Add a movie to a user's list of favorites
