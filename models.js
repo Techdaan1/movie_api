@@ -1,4 +1,4 @@
-//require mongoose
+//requiring mongoose
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -28,12 +28,14 @@ let userSchema = mongoose.Schema({
     FavoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
-//hashes password
+//hashes password when submitting password
 userSchema.statics.hashPassword = (password) => {
     return bcrypt.hashSync(password, 10);
 };
 
 //compares hashed password 
+//compares submitted hashed password with the hashed password in database
+/*!!! DO NOT USE ARROW FUNCTION FOR DEFINING INSTANCE METHODS, e.g: validatePassword !!!*/
 userSchema.methods.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.Password);
 }
