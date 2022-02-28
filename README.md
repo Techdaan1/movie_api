@@ -1,4 +1,4 @@
-# myFlix Project
+# myFlix API
 https://github.com/Techdaan1/movie_api
 
 ## Objective
